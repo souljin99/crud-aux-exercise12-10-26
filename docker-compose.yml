@@ -1,0 +1,43 @@
+services:
+  base-mysql:
+    image: mysql:8.0
+    container_name: base-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: crud
+    networks:
+      - red15
+    volumes:
+      - datos15:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p1234"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  backend-java:
+    build: ./backend/crud-application
+    container_name: backend-java
+    environment:
+      DB_URL: jdbc:mysql://base-mysql:3306/crud?useSSL=false&allowPublicKeyRetrieval=true
+      DB_USER: root
+      DB_PASSWORD: 1234
+    depends_on:
+      base-mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - red15
+  frontned-react:
+    build: ./frontend/crudfront
+    container_name: frontned-react
+    depends_on:
+      - backend-java
+    ports:
+      - "3000:3000"
+    networks:
+      - red15
+networks:
+  red15:
+volumes:
+  datos15:
