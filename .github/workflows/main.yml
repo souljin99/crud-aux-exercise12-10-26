@@ -6,13 +6,18 @@ on:
 
 jobs:
   echo-job:
+<<<<<<< Updated upstream
     name: tarea de despliegue
+=======
+    name: Run Echo Commands
+>>>>>>> Stashed changes
     runs-on: self-hosted
     
     steps:
       - name: Step 1 - Basic Echo
         uses: actions/checkout@v3
 
+<<<<<<< Updated upstream
       - name: Step 2 - test
         run: |
           echo "test"
@@ -26,3 +31,7 @@ jobs:
         run: |
           docker compose down || true
           docker compose up --build -d
+=======
+      - name: Step 2 - Echo Current Date
+        run: 'echo "The current date and time is: $(date)"'
+>>>>>>> Stashed changes
