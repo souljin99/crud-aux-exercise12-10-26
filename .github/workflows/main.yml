@@ -7,7 +7,7 @@ on:
 jobs:
   echo-job:
     name: Run Echo Commands
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: Step 1 - Basic Echo
