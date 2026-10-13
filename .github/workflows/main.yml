@@ -19,7 +19,7 @@ jobs:
 
       - name: build
         run: |
-          exho "build"
+          echo "build"
           docker compose build
 
       - name: Deploy
